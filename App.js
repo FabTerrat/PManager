@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+import HeaderBox from './components/Header';
+
+import Accueil from './pages/Accueil';
+import NewEvent from './pages/NewEvent';
+import Event from './pages/Event';
+import Partages from './pages/Partages';
+import Invite from './pages/Invite';
+import NewResource from  "./pages/NewResource";
+
+// import db from './data/database';
+
+const Stack = createStackNavigator();
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+  
+    <NavigationContainer>
+      <HeaderBox/>
+      <Stack.Navigator initialRouteName="Accueil">
+        <Stack.Screen name="Accueil" component={Accueil} options={{ headerShown: false }} />
+        <Stack.Screen name="Event" component={Event} options={{ headerShown: false }} />
+        <Stack.Screen name="NewEvent" component={NewEvent} options={{ headerShown: false }} />
+        <Stack.Screen name="Partages" component={Partages}/>
+        <Stack.Screen name="Invite" component={Invite} />
+        <Stack.Screen name="NewResource" component={NewResource} options={{ title:"Ajouter une ressource"}}/>
+        {/* Ajoutez d'autres écrans ici si nécessaire */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
