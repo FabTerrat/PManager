@@ -156,7 +156,6 @@ const styles_Event = StyleSheet.create({
   navigationBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignContent : 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 40, // Ajustez selon votre préférence
     marginBottom: 20,
@@ -167,7 +166,7 @@ const styles_Event = StyleSheet.create({
   },
   tab: {
     paddingVertical: 10,
-    paddingHorizontal: 35, // Ajustez selon votre préférence
+    paddingHorizontal: 35, 
   },
   activeTab: {
     borderRadius: 20,

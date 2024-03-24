@@ -32,7 +32,7 @@ const AddResource = ({}) => {   //{navigation}
   };
 
   return (
-    <SafeAreaView style={style_re.safeArea}>
+    <SafeAreaView style={styles.safeArea}>
       <View style={style_re.contentContainer}>
         <View style={style_re.legendContainer}>
           <Text style={style_re.legendRessource}>Ajouter une nouvelle ressource</Text>
@@ -124,15 +124,12 @@ export default AddResource;
 
 
 const style_re = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  contentContainer: {
-    flex: 1,
-    padding: 20,
-  },
-  legendContainer: {
-    marginBottom: 10,
-  },
+  // contentContainer: {
+  //   flex: 1,
+  //   padding: 20,
+  // },
+  // legendContainer: {
+  //   marginBottom: 10,
+  // },
 
 })

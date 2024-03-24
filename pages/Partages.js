@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import styles from '../theme/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CheckBox from '../components/CheckBox';
 
-const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMax, onPress }) => {
-    const [maxPersons, setMaxPersons] = useState(1);
+const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMax, onPress, checkBoxValue }) => {
     
-    const handleCheckBox = () => {
-        if (maxPersons < nbMax) {
+    // ---- A modif avec BDD -----------
+    const [maxPersons, setMaxPersons] = useState(1);
+    const handleCheckBoxChange = (value) => {
+        if (value === 1) {
             setMaxPersons(maxPersons + 1);
+        } else {
+            setMaxPersons(maxPersons - 1);
         }
     }
-  
     return (
         <SafeAreaView style={style_res.container}>
 
@@ -33,13 +36,13 @@ const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMa
             {/* Quatrième partie: Checkbox et Prix */} 
             
                 <View style={style_res.toShareContainer}>
-                    {/* <CheckBox
-                        value={false}
-                        onValueChange={handleCheckBox}
-                    /> */}
+                    <CheckBox onValueChange={handleCheckBoxChange} value={checkBoxValue}/>
                     <Text style={style_res.maxPersonsText}>{maxPersons}/{nbMax}Max</Text>
-                    <Text style={style_res.priceText}>{price}</Text>
                 </View>
+                {checkBoxValue === 1 && maxPersons > 1 && (
+                <Text style={style_res.plusOneContributorText}>+1 contributeur</Text>
+                )}
+                <Text style={style_res.priceText}>{price}</Text>
                 </View>
 
         </SafeAreaView>
@@ -125,7 +128,9 @@ const style_res = StyleSheet.create({
         fontSize: 16,
     },
     priceText: {
-        fontSize: 16,
+        fontSize: 25,
+        fontStyle: 'Bold',
+        margin: 5,
     },
 });
 
