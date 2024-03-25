@@ -109,5 +109,26 @@ const styles = StyleSheet.create({
 
 export default styles;
 
+// Définissez les styles pour chaque composant
+export const styles_NewEvent = StyleSheet.create({
+  safeArea :{
+    flex : 1,
+  },
+  container: {
+    padding: 20,
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  contentContainer: {
+    flex: 1,
+    paddingBottom: 0
+  },
+  // ... autres styles
+});
 
 
