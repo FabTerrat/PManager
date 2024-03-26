@@ -20,7 +20,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
 // Obtention d'une instance de Firestore
 const db = getFirestore(app); // Initialisez Firestore en utilisant l'instance de l'application Firebase
 

@@ -64,6 +64,10 @@ const PageRessource = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
+            {/* <Text style={styles.legendRessource}>Catégorie</Text>
+            <Text style={styles.legendRessource}>Nom</Text>
+            <Text style={styles.legendRessource}>Quantité</Text>
+            <Text style={styles.legendRessource}>Partage</Text> */}
             <View style={styles.contentContainer}>
             {resource.map(resource => (
     // Vérifie si toShare est égal à 1
