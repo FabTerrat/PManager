@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import styles from '../theme/styles';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import db from '../service/FireConfig';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/Entypo';
+
+
 
 const ListResources = ({ proprio, name, category, quantity, toShare}) => {
   
@@ -50,13 +54,55 @@ const ListResources = ({ proprio, name, category, quantity, toShare}) => {
     );
 };
 
-const PageRessource = ({ navigation }) => {
-    const resource = [
-        { id: 1, proprio : 'Tom', nom : 'Pomme', category: 'A', quantity : "2", toShare: 1},
-        { id: 2, proprio : 'Malick', nom : "jus de pomme", category: 'B', quantity : "2L", toShare: 1},
-        { id: 3, proprio : 'Malick', nom : "noix", category: 'A', quantity : "1kg",toShare: 0},
-        { id: 4, proprio : 'Malick', nom : "jus de carotte", category: 'B', quantity : "3L", toShare: 0},
-    ];
+const PageRessource = ({ event }) => {
+    // const resource = [
+    //     { id: 1, proprio : 'Tom', nom : 'Pomme', category: 'A', quantity : "2", toShare: 1},
+    //     { id: 2, proprio : 'Malick', nom : "jus de pomme", category: 'B', quantity : "2L", toShare: 1},
+    //     { id: 3, proprio : 'Malick', nom : "noix", category: 'A', quantity : "1kg",toShare: 0},
+    //     { id: 4, proprio : 'Malick', nom : "jus de carotte", category: 'B', quantity : "3L", toShare: 0},
+    // ];
+
+    const [resources, setResources] = useState([]);
+
+    useEffect(() => {
+        const fetchResourcesForEvent = async () => {
+            try {
+                // Vérifiez que event et event.id sont définis avant d'exécuter la requête Firestore
+                if (event && event.id) {
+                    const participationsCollection = collection(db, 'participations');
+                    const participationsQuery = query(participationsCollection, where('eventId', '==', event.id));
+                    const participationsSnapshot = await getDocs(participationsQuery);
+
+                    const promises = [];
+
+                    participationsSnapshot.forEach((doc) => {
+                        const participationData = doc.data();
+                        const contributionsCollection = collection(db, 'contributions');
+                        const contributionsQuery = query(contributionsCollection, where('idParticipation', '==', doc.id));
+                        const promise = getDocs(contributionsQuery);
+                        promises.push(promise);
+                    });
+
+                    const results = await Promise.all(promises);
+
+                    const resourcesData = [];
+                    results.forEach((contributionsSnapshot) => {
+                        contributionsSnapshot.forEach((contribution) => {
+                            const contributionData = contribution.data();
+                            resourcesData.push(contributionData);
+                        });
+                    });
+
+                    setResources(resourcesData);
+                }
+            } catch (error) {
+                console.error('Error fetching resources:', error);
+            }
+        };
+
+        fetchResourcesForEvent();
+    }, [event]); // Ne dépend que de event, pas de event.id
+    
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -67,7 +113,7 @@ const PageRessource = ({ navigation }) => {
             <Text style={styles.legendRessource}>Partage</Text>
             </SafeAreaView>
             <View style={styles.contentContainer}>
-                {resource.map(resource => (
+                {resources.map(resource => (
                     <ListResources
                         key={resource.id}
                         proprio={resource.proprio}
