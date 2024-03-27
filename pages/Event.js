@@ -1,11 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
-import { useNavigation  } from '@react-navigation/native';
+import { useNavigation, useRoute  } from '@react-navigation/native';
 import styles from '../theme/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Importez l'icône FontAwesome
 import Icons from 'react-native-vector-icons/FontAwesome';
 import PageRessource from '../components/Ressources';
+import { formatDate } from './Accueil';
 
 
 //-----------------Barre Footer ---------------------------------------
@@ -43,6 +44,10 @@ const Event = () => {
     };
 
     const navigation = useNavigation();
+    const route = useRoute();
+
+    // Récupérer les données de l'événement depuis les paramètres de navigation
+    const { event } = route.params;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -50,13 +55,13 @@ const Event = () => {
         <ScrollView style={styles.container}>
             <View style={styles_Event.presentation}>
               {/* Titre en gros centré en haut */}
-              <Text style={styles_Event.title}>Titre de l'Event</Text>
+              <Text style={styles_Event.title}>{event.title}</Text>
               
               {/* Information (ex. Date) */}
-              <Text style={styles_Event.date}>28 août 2024</Text>
+              <Text style={styles_Event.date}>{formatDate(event.date)}</Text>
               
               {/* Description en gris */}
-              <Text style={styles_Event.description}>Description courte en gris</Text>
+              <Text style={styles_Event.description}>{event.description}</Text>
 
               {/* Barre de navigation */}
           <ScrollView
@@ -91,19 +96,19 @@ const Event = () => {
           <View style={styles.legendContainer}>
             <View style={styles.legendItem}>
               <Text style={styles.legendDescription}>Theme </Text>
-              <Text style={styles.infoText}>Thème de l'événement</Text>
+              <Text style={styles.infoText}>{event.theme}</Text>
             </View>
             <View style={styles.legendItem}>
               <Text style={styles.legendDescription}>Organisateur</Text>
-              <Text style={styles.infoText}>Nom de l'organisateur</Text>
+              <Text style={styles.infoText}>{event.organizer}</Text>
             </View>
             <View style={styles.legendItem}>
               <Text style={styles.legendDescription}>Lieu</Text>
-              <Text style={styles.infoText}>Lieu de l'événement</Text>
+              <Text style={styles.infoText}>{event.address}</Text>
             </View>
             <View style={styles.legendItem}>
               <Text style={styles.legendDescription}>Commentaire</Text>
-              <Text style={styles.infoText}>Commentaire supplémentaire</Text>
+              <Text style={styles.infoText}>{event.comment}</Text>
             </View>
           </View>
 
@@ -116,7 +121,7 @@ const Event = () => {
           ) : (
             //------------------------------Page ressources --------------------------------
             <View style={styles.container}>
-                <PageRessource/>
+                <PageRessource event={event} />
             </View>
           )}
 

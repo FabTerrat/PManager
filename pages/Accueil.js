@@ -10,7 +10,7 @@ import db from '../service/FireConfig';
 
 
 // Fonction pour formater la date
-const formatDate = (timestamp) => {
+export const formatDate = (timestamp) => {
   const dateObject = timestamp.toDate(); // Convertir le Timestamp en objet Date
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return dateObject.toLocaleDateString('fr-FR', options); // Utilisez la locale 'fr-FR' pour formater la date en français
@@ -79,22 +79,22 @@ const Accueil = ({ navigation }) => {
   }, []);
 
 
-  const handleItemPress = (item) => {
+  const handleItemPress = (event) => {
     // Navigate to a new page with details of the selected item
-    navigation.navigate('Event', { item });
+    navigation.navigate('Event', { event });
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.contentContainer}>
     <ScrollView style={styles.container}>
-      {events?.map((item) => (
+      {events?.map((event) => (
         <ListItem
-          key={item.id}
-          date={formatDate(item.date)}
-          title={item.title}
-          description={item.description}
-          onPress={() => handleItemPress(item.id)}
+          key={event.id}
+          date={formatDate(event.date)}
+          title={event.title}
+          description={event.description}
+          onPress={() => handleItemPress(event)}
         />
       ))}
     </ScrollView>
