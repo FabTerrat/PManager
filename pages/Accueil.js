@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Importez l'icône FontAwesome
 import styles from '../theme/styles';
 
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { Timestamp } from 'firebase/firestore';
-import db from '../service/FireConfig';
+import EventContext from '../service/ContextProvider/EventContext';
 
 
 // Fonction pour formater la date
@@ -52,35 +50,19 @@ const FooterBar = () => {
 //-------------------MainPage------------------------------------------
 
 const Accueil = ({ navigation }) => {
+
+  // ------------------Données Test ----------------
   // const events = [
   //   { id: 1, date: '8 Août 2024', title: 'Pool Party chez Mario ', description: 'Description 1-2' },
   //   { id: 2, date: '2 Dec. 2026', title: 'Raclette de la Team', description: 'Description 2-2' },
   //   { id: 3, date: 'Item 3', title: 'Titre 3-1', description: 'Description 3-2' },
   //   { id: 4, date: 'Item 4', title: 'Titre 4-1', description: 'Description 1616465' }
-  //   // Add more items as needed
   // ];
 
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        // const db = getFirestore();
-        const eventsCollection = collection(db, 'events'); // 'events' est le nom de votre collection dans Firestore
-        const eventsSnapshot = await getDocs(eventsCollection);
-        const eventsData = eventsSnapshot.docs.map(doc => doc.data());
-        setEvents(eventsData);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    };
-
-    fetchEvents();
-  }, []);
-
+  const {events} = useContext(EventContext)
 
   const handleItemPress = (event) => {
-    // Navigate to a new page with details of the selected item
+    // Navigation vers la nouvel page en transmettant les informations de l'event selectionné
     navigation.navigate('Event', { event });
   };
 

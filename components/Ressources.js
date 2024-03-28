@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import styles from '../theme/styles';
+import ResourceContext from '../service/ContextProvider/ResourceContext';
+import UserContext from '../service/ContextProvider/UserContext';
+import ParticipationContext from '../service/ContextProvider/ParticipationContext';
+import ContributionContext from '../service/ContextProvider/ContributionContext';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/Entypo';
+
+
 
 const ListResources = ({ proprio, name, category, quantity, toShare}) => {
   
@@ -32,14 +38,14 @@ const ListResources = ({ proprio, name, category, quantity, toShare}) => {
                     <Text style={style_res.quantityText}>*{quantity}</Text>
                 </View>
                 {/* Quatrième partie: Checkbox et Prix (optionnel) */}
-                {toShare === 1 && (
+                {toShare === "1" && (
                     <View style={style_res.toShareContainer}>
                         <Icon name="safety-divider" size={20} color="black" />
                         <Icon name="currency-exchange" size={20} color="black" />
                     </View>
                 )}
                 {/* Quatrième partie: Checkbox et Prix (optionnel) */}
-                {toShare === 0 && (
+                {toShare === "0" && (
                     <View style={style_res.toShareContainer}>
                         <Icon name="safety-divider" size={20} color="black" />
                         <Text>Ok</Text>
@@ -50,13 +56,63 @@ const ListResources = ({ proprio, name, category, quantity, toShare}) => {
     );
 };
 
-const PageRessource = ({ navigation }) => {
-    const resource = [
-        { id: 1, proprio : 'Tom', nom : 'Pomme', category: 'A', quantity : "2", toShare: 1},
-        { id: 2, proprio : 'Malick', nom : "jus de pomme", category: 'B', quantity : "2L", toShare: 1},
-        { id: 3, proprio : 'Malick', nom : "noix", category: 'A', quantity : "1kg",toShare: 0},
-        { id: 4, proprio : 'Malick', nom : "jus de carotte", category: 'B', quantity : "3L", toShare: 0},
-    ];
+
+
+const PageRessource = ({ event }) => {
+    // const resource = [
+    //     { id: 1, proprio : 'Tom', nom : 'Pomme', category: 'A', quantity : "2", toShare: 1},
+    //     { id: 2, proprio : 'Malick', nom : "jus de pomme", category: 'B', quantity : "2L", toShare: 1},
+    //     { id: 3, proprio : 'Malick', nom : "noix", category: 'A', quantity : "1kg",toShare: 0},
+    //     { id: 4, proprio : 'Malick', nom : "jus de carotte", category: 'B', quantity : "3L", toShare: 0},
+    // ];
+
+    const {resources} = useContext(ResourceContext);
+    const {allUsers} = useContext(UserContext);
+    const {allParticipations}=useContext(ParticipationContext);
+    const {allContributions}=useContext(ContributionContext);
+
+
+    // const [resources, setResources] = useState([]);
+
+    // useEffect((event) => {
+    //     const fetchResourcesForEvent = async () => {
+    //         try {
+    //             // Vérifiez que event et event.id sont définis avant d'exécuter la requête Firestore
+    //             if (event && event.id) {
+    //                 const participationsCollection = collection(db, 'participations');
+    //                 const participationsQuery = query(participationsCollection, where('eventId', '==', event.id));
+    //                 const participationsSnapshot = await getDocs(participationsQuery);
+
+    //                 const promises = [];
+
+    //                 participationsSnapshot.forEach((doc) => {
+    //                     const participationData = doc.data();
+    //                     const contributionsCollection = collection(db, 'contributions');
+    //                     const contributionsQuery = query(contributionsCollection, where('idParticipation', '==', doc.id));
+    //                     const promise = getDocs(contributionsQuery);
+    //                     promises.push(promise);
+    //                 });
+
+    //                 const results = await Promise.all(promises);
+
+    //                 const resourcesData = [];
+    //                 results.forEach((contributionsSnapshot) => {
+    //                     contributionsSnapshot.forEach((contribution) => {
+    //                         const contributionData = contribution.data();
+    //                         resourcesData.push(contributionData);
+    //                     });
+    //                 });
+
+    //                 setResources(resourcesData);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching resources:', error);
+    //         }
+    //     };
+
+    //     fetchResourcesForEvent();
+    // }, [event]); 
+    
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -67,19 +123,52 @@ const PageRessource = ({ navigation }) => {
             <Text style={styles.legendRessource}>Partage</Text>
             </SafeAreaView>
             <View style={styles.contentContainer}>
-                {resource.map(resource => (
+                {resources.map(contribution => (
                     <ListResources
-                        key={resource.id}
-                        proprio={resource.proprio}
-                        name={resource.nom}
-                        category={resource.category}
-                        quantity={resource.quantity}
-                        toShare={resource.toShare}
+                        key={contribution.id}
+                        proprio="A définir"  // Rend le user.username du user dont contribution.userId = user.id
+                        name={contribution.name} // Rend le resource.name de la resource dont contribution.resourceId = resource.id
+                        category={contribution.category} // Rend le categories.name de la resource dont resource.category=categorie.id et contribution.resourceId = resource.id
+                        quantity={contribution.quantity} // Rend le resource.quantity de la resource dont contribution.resourceId = resource.id
+                        toShare={contribution.toShare} // Rend le resource.toShare de la resource dont contribution.resourceId = resource.id
                     />
                 ))}
             </View>
         </SafeAreaView>
     );
+    // return (
+    //     <SafeAreaView style={styles.safeArea}>
+    //         <SafeAreaView style={style_res.legendItemContainer}>
+    //             <Text style={styles.legendRessource}>Catégorie</Text>
+    //             <Text style={styles.legendRessource}>Nom</Text>
+    //             <Text style={styles.legendRessource}>Quantité</Text>
+    //             <Text style={styles.legendRessource}>Partage</Text>
+    //         </SafeAreaView>
+    //         <View style={styles.contentContainer}>
+    //             {allContributions && allContributions.map(contribution => {
+    //                 // Trouver le user associé à cette contribution
+    //                 const user = allUsers.find(user => user.id === contribution.user_id);
+                    
+    //                 // Trouver la ressource associée à cette contribution
+    //                 const resource = allResources.find(resource => resource.id === contribution.resource_id);
+                    
+    //                 // Trouver la catégorie associée à cette ressource
+    //                 const category = allCategories.find(category => category.id === resource.category_id);
+    
+    //                 return (
+    //                     <ListResources
+    //                         key={contribution.id}
+    //                         proprio={user ? user.username : 'N/A'}
+    //                         name={resource ? resource.name : 'N/A'}
+    //                         category={category ? category.name : 'N/A'}
+    //                         quantity={resource ? resource.quantity : 'N/A'}
+    //                         toShare={resource ? resource.toShare : 'N/A'}
+    //                     />
+    //                 );
+    //             })}
+    //         </View>
+    //     </SafeAreaView>
+    // );
 };
 
 export const style_res = StyleSheet.create({

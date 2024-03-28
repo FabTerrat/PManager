@@ -1,8 +1,12 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import {UserProvider} from './service/ContextProvider/UserContext';
+import {EventProvider}  from './service/ContextProvider/EventContext';
+import {ResourceProvider} from './service/ContextProvider/ResourceContext';
+import {ParticipationProvider}  from './service/ContextProvider/ParticipationContext';
+import {ContributionProvider}  from './service/ContextProvider/ContributionContext';
 
 import HeaderBox from './components/Header';
 
@@ -21,7 +25,13 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-  
+    // Pour l'instant data lisibles par toutes les pages, A modifier + tard
+    <UserProvider>
+    <EventProvider>
+    <ResourceProvider>
+    <ParticipationProvider>
+    <ContributionProvider>
+
     <NavigationContainer>
       <HeaderBox/>
       <Stack.Navigator initialRouteName="Accueil">
@@ -34,5 +44,11 @@ export default function App() {
         {/* Ajoutez d'autres écrans ici si nécessaire */}
       </Stack.Navigator>
     </NavigationContainer>
+
+    </ContributionProvider>
+    </ParticipationProvider>
+    </ResourceProvider>
+    </EventProvider>
+    </UserProvider>
   );
 }

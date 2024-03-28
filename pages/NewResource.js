@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, TextInput, Button } from 'react-native';
 import styles from '../theme/styles';
 import style_res from '../components/Ressources';
+import { collection, addDoc } from 'firebase/firestore';
+import db from '../service/FireConfig';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -13,22 +15,28 @@ const AddResource = ({}) => {   //{navigation}
   const [quantity, setQuantity] = useState('');
   const [toShare, setToShare] = useState(1);
 
-  const handleAddResource = () => {
-    // Ajouter la logique pour enregistrer la nouvelle ressource
-    console.log('Nouvelle ressource ajoutée :', {
-      proprio,
-      name,
-      category,
-      quantity,
-      toShare,
-    });
+  const handleAddResource = async () => {
+    try {
+        // Ajoutez la nouvelle ressource à la collection 'contributions' dans Firestore
+        const docRef = await addDoc(collection(db, 'contributions'), {
+            proprio,
+            nom: name,
+            category,
+            quantity,
+            toShare,
+            // Ajoutez d'autres champs si nécessaire
+        });
+          console.log('Document written with ID: ', docRef.id);
 
-    // Réinitialiser les champs après l'ajout de la ressource
-    setProprio('');
-    setName('');
-    setCategory('A');
-    setQuantity('');
-    setToShare(1);
+          // Réinitialiser les champs après l'ajout de la ressource
+          setProprio('');
+          setName('');
+          setCategory('A');
+          setQuantity('');
+          setToShare(1);
+      } catch (error) {
+          console.error('Error adding document: ', error);
+      }
   };
 
   return (

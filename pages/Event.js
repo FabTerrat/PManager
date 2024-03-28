@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
 import { useNavigation, useRoute  } from '@react-navigation/native';
 import styles from '../theme/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Importez l'icône FontAwesome
-import Icons from 'react-native-vector-icons/FontAwesome';
+// import Icons from 'react-native-vector-icons/FontAwesome';
 import PageRessource from '../components/Ressources';
 import { formatDate } from './Accueil';
+import UserContext , {UserProvider} from '../service/ContextProvider/UserContext';
+import {ResourceProvider} from '../service/ContextProvider/ResourceContext';
+import ParticipationContext,{ParticipationProvider}  from '../service/ContextProvider/ParticipationContext';
+import {ContributionProvider}  from '../service/ContextProvider/ContributionContext';
+// import { query } from 'firebase/firestore';
+
+
 
 
 //-----------------Barre Footer ---------------------------------------
@@ -36,7 +43,6 @@ const FooterBar = () => {
 const Event = () => {
 
     const [currentPage, setCurrentPage] = useState('Infos'); // État pour suivre la page actuellement sélectionnée
-    const [scrollPosition, setScrollPosition] = useState(0); // État pour suivre la position de défilement
   
     // Fonction pour changer la page actuellement sélectionnée
     const changePage = (page) => {
@@ -45,9 +51,16 @@ const Event = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
+    const { event } = route.params; // Récupérer les données de l'événement depuis les paramètres de navigation
 
-    // Récupérer les données de l'événement depuis les paramètres de navigation
-    const { event } = route.params;
+    const {participations} = useContext(ParticipationContext);
+    const {users} = useContext(UserContext);
+    const guests = participations.filter(participation => participation.eventId === event.id);
+    // const guests = allUsers.filter(guest => guest.id === participation.userId)
+
+    const nbParticipations = participations.length;
+
+
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -114,14 +127,22 @@ const Event = () => {
 
           {/* Lien pour le nombre d'invités */}
           <TouchableOpacity style={styles_Event.button} onPress={() => navigation.navigate('Invite')}>
-            <Text style={styles_Event.buttonTextTop}>Nombre d'invités: 50</Text>
+            <Text style={styles_Event.buttonTextTop}>Nombre d'invités: {nbParticipations}</Text>
             <Text style={styles_Event.buttonTextBottom}>Voir les invités</Text>
           </TouchableOpacity>
         </View>
           ) : (
             //------------------------------Page ressources --------------------------------
             <View style={styles.container}>
+              <ResourceProvider/>
+              <UserProvider>
+              <ParticipationProvider>
+              <ContributionProvider >
                 <PageRessource event={event} />
+              </ContributionProvider>
+              </ParticipationProvider>
+              </UserProvider>
+              <ResourceProvider/>
             </View>
           )}
 
