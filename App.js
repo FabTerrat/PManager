@@ -25,7 +25,8 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    // Pour l'instant data lisibles par toutes les pages, A modifier + tard
+    // Pour l'instant data lisibles par toutes les pages, A modifier éventuellement plus tard
+    // Propagation des données à l'ensemble des pages pour faciliter leur appel
     <UserProvider>
     <EventProvider>
     <ResourceProvider>

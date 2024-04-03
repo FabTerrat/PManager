@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import { View, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Importez l'icône FontAwesome
 import styles from '../theme/styles';
 
@@ -51,13 +51,6 @@ const FooterBar = () => {
 
 const Accueil = ({ navigation }) => {
 
-  // ------------------Données Test ----------------
-  // const events = [
-  //   { id: 1, date: '8 Août 2024', title: 'Pool Party chez Mario ', description: 'Description 1-2' },
-  //   { id: 2, date: '2 Dec. 2026', title: 'Raclette de la Team', description: 'Description 2-2' },
-  //   { id: 3, date: 'Item 3', title: 'Titre 3-1', description: 'Description 3-2' },
-  //   { id: 4, date: 'Item 4', title: 'Titre 4-1', description: 'Description 1616465' }
-  // ];
 
   const {events} = useContext(EventContext)
 

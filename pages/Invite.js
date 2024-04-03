@@ -7,18 +7,27 @@ import UserContext from '../service/ContextProvider/UserContext';
 
 
 const ListGuest = ({ username, status, onPress, onDelete }) => {
+    
+    if (status === 1) {
+        callStatus = "Admin";
+    } else if (status === 0) {
+        callStatus = "Guest";
+    } else {
+        callStatus = "Autre";
+    } 
+    
     return (
         <SafeAreaView style={style_res.container}>
             <View style={style_res.itemContainer}>
-            <Text style={style_res.nameText}> {username} - {status} </Text>
-            {/* {status.toLowerCase() !== 1 && (
+            <Text style={style_res.nameText}> {username} - {callStatus} </Text>
+            {status !== 1 && (
                 <Icon
                     name="delete"
                     size={24}
                     color="red"
                     onPress={onDelete}
                 />
-            )} */}
+            )}
             </View>
         </SafeAreaView>
     );
@@ -36,27 +45,29 @@ const PageInvite = ({ navigation }) => {
     //     // Navigate to the guest's details page
     // };
 
-    const {users}  = useContext(UserContext);
+    const {users, deleteUser}  = useContext(UserContext);
 
+    //Supprimer l'utilisateur avec son id
     const handleDeletePress = (id) => {
-        // Delete the guest with by his id
-        setGuests(guests.filter((guest) => guest.id !== id));
+        deleteUser(id);
     };
 
     const handleAddGuestPress = () => {
-        // Add a new guest here
+        const helloWorld = "coucou"
     }
 
     return (
         <View style={style_res.container}>
-            {users.map((guest) => (
+            {users.slice() // Crée une copie du tableau pour éviter de modifier l'ordre des éléments dans l'original
+            .sort((a, b) => b.status - a.status) // Trie les utilisateurs en fonction de leur statut
+            .map((guest) => (
                 <ListGuest
                     key={guest.id}
                     username={guest.username}
                     status={guest.status}
                     onPress={() => handleGuestPress(guest.id)}
-                    onDelete={guest.status !== 'Admin' ? () => handleDeletePress(guest.id) : undefined}
-                />
+                    onDelete={ () => handleDeletePress(guest.id)}
+                />               
             ))}
             <TouchableOpacity onPress={handleAddGuestPress} style={styles.addButton}>
                 <Text style={styles.addButtonText}>+ Add guest</Text>
