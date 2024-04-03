@@ -31,17 +31,16 @@ export default function App() {
     <ResourceProvider>
     <ParticipationProvider>
     <ContributionProvider>
-
     <NavigationContainer>
       <HeaderBox/>
-      <Stack.Navigator initialRouteName="Accueil">
+      <Stack.Navigator initialRouteName="Accueil"> 
         <Stack.Screen name="Accueil" component={Accueil} options={{ headerShown: false }} />
         <Stack.Screen name="Event" component={Event} options={{ headerShown: false }} />
         <Stack.Screen name="NewEvent" component={NewEvent} options={{ headerShown: false }} />
         <Stack.Screen name="Partages" component={Partages}/>
         <Stack.Screen name="Invite" component={Invite} />
-        <Stack.Screen name="NewResource" component={NewResource} options={{ title:"Ajouter une ressource"}}/>
-        {/* Ajoutez d'autres écrans ici si nécessaire */}
+        <Stack.Screen name="NewResource" component={NewResource} options={{ title:"Ajouter une ressource"}}/> 
+        {/* ...  */}
       </Stack.Navigator>
     </NavigationContainer>
 

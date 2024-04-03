@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, TextInput, Button } from 'react-native';
 import styles from '../theme/styles';
-import style_res from '../components/Ressources';
+import style_res from './Resources';
 import { collection, addDoc } from 'firebase/firestore';
 import db from '../service/FireConfig';
 

@@ -5,7 +5,7 @@ import { useNavigation, useRoute  } from '@react-navigation/native';
 import styles from '../theme/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Importez l'icône FontAwesome
 // import Icons from 'react-native-vector-icons/FontAwesome';
-import PageRessource from '../components/Ressources';
+import PageRessource from './Resources';
 import { formatDate } from './Accueil';
 import UserContext , {UserProvider} from '../service/ContextProvider/UserContext';
 import {ResourceProvider} from '../service/ContextProvider/ResourceContext';

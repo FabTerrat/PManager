@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StatusBar, NavigationBar } from 'react-native';
+import { View, StatusBar, } from 'react-native';
 
 const NotifBar = () => {
   return (
