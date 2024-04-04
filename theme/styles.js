@@ -109,26 +109,39 @@ const styles = StyleSheet.create({
 
 export default styles;
 
-// Définissez les styles pour chaque composant
-export const styles_NewEvent = StyleSheet.create({
+
+
+// Styles
+export const styles_New = StyleSheet.create({
   safeArea :{
     flex : 1,
   },
   container: {
+    flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    flex: 1,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  fieldContainer: {
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    fontSize: 16,
+  },
   contentContainer: {
     flex: 1,
     paddingBottom: 0
   },
-  // ... autres styles
 });
-
 

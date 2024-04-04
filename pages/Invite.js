@@ -53,7 +53,7 @@ const PageInvite = ({ navigation }) => {
     };
 
     const handleAddGuestPress = () => {
-        const helloWorld = "coucou"
+        // A implémenter pour faire voir le profil 
     }
 
     return (

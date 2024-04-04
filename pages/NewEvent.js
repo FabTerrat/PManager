@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // Importez l'icône FontAwesome
-import styles from '../theme/styles';
+import styles, {styles_New} from '../theme/styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { addDoc, collection } from 'firebase/firestore';
@@ -88,18 +88,18 @@ const NewEvent = ({}) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.contentContainer}>
-    <ScrollView style={styles_NewEvent.container}>
-    <Text style={styles_NewEvent.title}>Nouvel évènement</Text>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>Titre</Text>
-        <TextInput style={styles_NewEvent.input} onChangeText={value => setTitle(value)}/>
+    <ScrollView style={styles_New.container}>
+    <Text style={styles_New.title}>Nouvel évènement</Text>
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>Titre</Text>
+        <TextInput style={styles_New.input} onChangeText={value => setTitle(value)}/>
       </View>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>Description</Text>
-        <TextInput style={styles_NewEvent.input} onChangeText={value => setDescription(value)}/>
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>Description</Text>
+        <TextInput style={styles_New.input} onChangeText={value => setDescription(value)}/>
       </View>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>Date et Heure</Text>
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>Date et Heure</Text>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
           <View style={{ flex: 1 }}>
             <Text>
@@ -125,21 +125,21 @@ const NewEvent = ({}) => {
         />
       )}
       </View>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>Organisateur</Text>
-        <TextInput style={styles_NewEvent.input} onChangeText={value => setOrganizer(value)} />
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>Organisateur</Text>
+        <TextInput style={styles_New.input} onChangeText={value => setOrganizer(value)} />
       </View>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>thème</Text>
-        <TextInput style={styles_NewEvent.input} onChangeText={value => setTheme(value)} />
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>thème</Text>
+        <TextInput style={styles_New.input} onChangeText={value => setTheme(value)} />
       </View>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>Lieu</Text>
-        <TextInput style={styles_NewEvent.input} onChangeText={value => setAddress(value)} />
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>Lieu</Text>
+        <TextInput style={styles_New.input} onChangeText={value => setAddress(value)} />
       </View>
-      <View style={styles_NewEvent.fieldContainer}>
-        <Text style={styles_NewEvent.label}>Commentaire</Text>
-        <TextInput style={styles_NewEvent.input}  onChangeText={value => setComment(value)} />
+      <View style={styles_New.fieldContainer}>
+        <Text style={styles_New.label}>Commentaire</Text>
+        <TextInput style={styles_New.input}  onChangeText={value => setComment(value)} />
       </View>
       <Text></Text>
       <Text></Text>
@@ -155,29 +155,4 @@ const NewEvent = ({}) => {
 export default NewEvent;
 
 
-// Styles
-const styles_NewEvent = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  fieldContainer: {
-    marginBottom: 10,
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 5,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    fontSize: 16,
-  },
-});
+

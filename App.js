@@ -17,11 +17,7 @@ import Partages from './pages/Partages';
 import Invite from './pages/Invite';
 import NewResource from  "./pages/NewResource";
 
-// import db from './data/database';
-
 const Stack = createStackNavigator();
-
-
 
 export default function App() {
   return (

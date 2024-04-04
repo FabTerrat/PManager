@@ -58,7 +58,7 @@ const Event = () => {
     const guests = participations.filter(participation => participation.eventId === event.id);
     // const guests = allUsers.filter(guest => guest.id === participation.userId)
 
-    const nbParticipations = participations.length;
+    const nbParticipations = users.length;
 
 
 

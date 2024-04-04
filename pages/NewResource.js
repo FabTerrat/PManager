@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, TextInput, Button } from 'react-native';
-import styles from '../theme/styles';
+import styles, {styles_New} from '../theme/styles';
 import style_res from './Resources';
 import { collection, addDoc } from 'firebase/firestore';
 import db from '../service/FireConfig';
@@ -41,13 +41,13 @@ const AddResource = ({}) => {   //{navigation}
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={style_re.contentContainer}>
-        <View style={style_re.legendContainer}>
-          <Text style={style_re.legendRessource}>Ajouter une nouvelle ressource</Text>
+      <View style={styles_New.contentContainer}>
+        <View style={styles_New.legendContainer}>
+          <Text style={styles_New.legendRessource}>Ajouter une nouvelle ressource</Text>
         </View>
-        <View style={style_res.inputContainer}>
+        <View style={styles_New.inputContainer}>
           <View style={style_res.inputRow}>
-            <View style={style_res.legendContainer}>
+            <View style={styles_New.legendContainer}>
               <Text style={style_res.legendText}>Propriétaire</Text>
             </View>
             <View style={style_res.nameContainer}>
@@ -72,9 +72,10 @@ const AddResource = ({}) => {   //{navigation}
               />
             </View>
           </View>
-          <View style={style_res.inputRow}>
-            <View style={style_res.legendContainer}>
-              <Text style={style_res.legendText}>Catégorie</Text>
+          <View style={styles_New.inputRow}>
+            <View style={styles_New.legendContainer}>
+              <Text style={styles_New.legendText}>Catégorie</Text>
+              <Text>("A", "B", "J", ou "X" / Aliment, Boisson, Jeux, Autre)</Text>
             </View>
             <View style={style_res.logoContainer}>
               {category === 'A' && (
@@ -84,38 +85,38 @@ const AddResource = ({}) => {   //{navigation}
                 <Icons name="drink" size={40} color="black" />
               )}
               <TextInput
-                style={style_re.legendRessource}
+                style={styles_New.legendRessource}
                 placeholder="Catégorie"
                 value={category}
                 onChangeText={setCategory}
               />
             </View>
           </View>
-          <View style={style_res.inputRow}>
-            <View style={style_res.legendContainer}>
-              <Text style={style_res.legendText}>Quantité</Text>
+          <View style={styles_New.inputRow}>
+            <View style={styles_New.legendContainer}>
+              <Text style={styles_New.legendText}>Quantité</Text>
             </View>
-            <View style={style_res.quantityContainer}>
+            <View style={styles_New.quantityContainer}>
               <TextInput
-                style={style_res.quantityText}
+                style={styles_New.quantityText}
                 placeholder="Quantité"
                 value={quantity}
                 onChangeText={setQuantity}
               />
             </View>
           </View>
-          <View style={style_res.inputRow}>
-            <View style={style_res.legendContainer}>
-              <Text style={style_res.legendText}>Partage</Text>
+          <View style={styles_New.inputRow}>
+            <View style={styles_New.legendContainer}>
+              <Text style={styles_New.legendText}>Partage</Text>
             </View>
-            <View style={style_res.toShareContainer}>
+            <View style={styles_New.toShareContainer}>
               <Icon
                 name="safety-divider"
                 size={50}
                 color="black"
                 onPress={() => setToShare(toShare === 1 ? 0 : 1)}
               />
-              <Text style={style_re.legendRessource}>
+              <Text style={styles_New.legendRessource}>
                 {toShare === 1 ? 'Partager les frais' : 'Ne pas partager les frais'}
               </Text>
             </View>
@@ -131,13 +132,3 @@ const AddResource = ({}) => {   //{navigation}
 export default AddResource;
 
 
-const style_re = StyleSheet.create({
-  // contentContainer: {
-  //   flex: 1,
-  //   padding: 20,
-  // },
-  // legendContainer: {
-  //   marginBottom: 10,
-  // },
-
-})

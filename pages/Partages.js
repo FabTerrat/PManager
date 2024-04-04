@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import styles from '../theme/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icons from 'react-native-vector-icons/Entypo';
 import CheckBox from '../components/CheckBox';
+
+
 
 const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMax, onPress, checkBoxValue }) => {
     
@@ -22,7 +25,13 @@ const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMa
                 <View style={style_res.itemContainer}>
                     {/* Première partie: Logo */}                
                     <View style={style_res.logoContainer}>
-                        <Icon name="food-bank" size={40} color="black" />
+                        {category === 'A'? (
+                            <Icon name="food-bank" size={40} color="black" />
+                        ) : category === 'B'? (
+                            <Icons name="drink" size={40} color="black" />
+                          ) : (
+                            <Text> None </Text>
+                          )}
                     </View>
                                     
                 {/* Deuxième partie: Nom */} 
@@ -49,34 +58,37 @@ const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMa
     );
 };
 
+
+
+
+// ----------------------- Main Page  ------------------------------
 const PageRessource = ({ navigation }) => {
+
+    // Exemple de ressources partageable
     const resource = [
-        { id: 1, proprio : 'Tom', nom : 'Pomme', categorie: 'Aliment', quantity : "2", toShare: 1, price : "8$", nbMax: 3 },
+        { id: 1, proprio : 'Tom', nom : 'Pomme', categorie: 'A', quantity : "2", toShare: 1, price : "8$", nbMax: 3 },
         { id: 2, proprio : 'Malick', nom : "jus de pomme", categorie: 'B', quantity : "2L", toShare: 1, price : "2.3$", nbMax: 3 },
-        { id: 3, proprio : 'Malick', nom : "noix", categorie: 'Aliment', quantity : "1kg",toShare: 0, price : "2.3$", nbMax: 1 },
+        { id: 3, proprio : 'Malick', nom : "noix", categorie: 'A', quantity : "1kg",toShare: 0, price : "2.3$", nbMax: 1 },
         { id: 4, proprio : 'Malick', nom : "jus de carotte", categorie: 'B', quantity : "3L", toShare: 0, price : "2.3$", nbMax: 0 },
     ];
 
-    const handleResourcePress = (resources_id) => {
-        // Navigate to a new page with details of the selected item
-        navigation.navigate('Partage', { event_id, resources_id });
-    };
+    // -----------------------Code pour implémentation d'une page propre à chaque ressource-------------------------------------
+    // const handleResourcePress = (resources_id) => {
+    //     // Naviguer vers la nouvelle page en transmettant les id nécessaires 
+    //     navigation.navigate('Partage', { event_id, resources_id });
+    // };
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            {/* <Text style={styles.legendRessource}>Catégorie</Text>
-            <Text style={styles.legendRessource}>Nom</Text>
-            <Text style={styles.legendRessource}>Quantité</Text>
-            <Text style={styles.legendRessource}>Partage</Text> */}
             <View style={styles.contentContainer}>
             {resource.map(resource => (
-    // Vérifie si toShare est égal à 1
+    // Vérifie si toShare est égal à 1 == ressource partageable seulement
     resource.toShare === 1 && (
         <ListResources
             key={resource.id}
             proprio={resource.proprio}
             name={resource.nom}
-            category={resource.categorie} /* Mise à jour de la propriété category */
+            category={resource.categorie} 
             quantity={resource.quantity}
             toShare={resource.toShare}
             price={resource.price}
@@ -90,6 +102,10 @@ const PageRessource = ({ navigation }) => {
     );
 };
 
+
+
+
+// -----------------------Styles ------------------------------
 const style_res = StyleSheet.create({
     container: {
         marginBottom: 10,
