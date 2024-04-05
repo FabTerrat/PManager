@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Feather} from '@expo/vector-icons';
 import {TouchableOpacity}  from 'react-native';
 
+//------- Création du CheckBox : chaque clic permet le changement d'état entre coché ou non. -----------
 const CheckBox = () => {
     const [isChecked, setChecked] = useState(0);
 

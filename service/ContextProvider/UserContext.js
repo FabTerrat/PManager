@@ -2,11 +2,14 @@ import React, { createContext, useEffect, useState } from 'react';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import db from '../FireConfig';
 
+
+// ------------- Context pour traiter avec les données : Users ------------------------
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
+  // Récupération des données 
   useEffect(() => {
     const fetchUsers = async () => {
       const usersCollection = collection(db, 'users');
@@ -18,7 +21,7 @@ export const UserProvider = ({ children }) => {
     fetchUsers();
   }, []);
 
-
+  // Suppression d'un utilisateur en utilisant son id
   const deleteUser = async (id) => {
     try {
       await deleteDoc(doc(db, 'users', id));

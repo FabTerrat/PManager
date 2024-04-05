@@ -2,11 +2,14 @@ import React, { createContext, useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import db from '../FireConfig';
 
+
+// ------------- Context pour traiter avec les données : Resources  ------------------------
 const ResourceContext = createContext();
 
 export const ResourceProvider = ({ children }) => {
   const [resources, setResources] = useState([]);
 
+  // Récupération des données 
   useEffect(() => {
     const fetchResources = async () => {
       const resourcesCollection = collection(db, 'resources');

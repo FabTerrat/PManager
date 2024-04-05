@@ -17,6 +17,7 @@ import {ContributionProvider}  from '../service/ContextProvider/ContributionCont
 
 
 //-----------------Barre Footer ---------------------------------------
+// Retour vers Accueil / Navigation vers Newresource / Navigation vers Partages
 
 const FooterBar = () => {
   const navigation = useNavigation();
@@ -40,6 +41,8 @@ const FooterBar = () => {
 };
 
   //-----------------Main page  ---------------------------------------
+
+  
 const Event = () => {
 
     const [currentPage, setCurrentPage] = useState('Infos'); // État pour suivre la page actuellement sélectionnée
@@ -50,14 +53,19 @@ const Event = () => {
     };
 
     const navigation = useNavigation();
-    const route = useRoute();
+
+    // Récupération des données
+    const route = useRoute(); 
     const { event } = route.params; // Récupérer les données de l'événement depuis les paramètres de navigation
 
-    const {participations} = useContext(ParticipationContext);
-    const {users} = useContext(UserContext);
-    const guests = participations.filter(participation => participation.eventId === event.id);
-    // const guests = allUsers.filter(guest => guest.id === participation.userId)
 
+    // ------------Préparation à afficher la requête finale pour afficher seulement les invités de l'évènement -------------
+    // const {participations} = useContext(ParticipationContext);
+    // const guests = participations.filter(participation => participation.eventId === event.id); 
+    // // const guests = allUsers.filter(guest => guest.id === participation.userId)
+
+    // Récupération de tous les users pour le moment 
+    const {users} = useContext(UserContext);
     const nbParticipations = users.length;
 
 
@@ -67,13 +75,13 @@ const Event = () => {
       <View style={styles.contentContainer}>
         <ScrollView style={styles.container}>
             <View style={styles_Event.presentation}>
-              {/* Titre en gros centré en haut */}
+              {/* Titre de l'événement*/}
               <Text style={styles_Event.title}>{event.title}</Text>
               
-              {/* Information (ex. Date) */}
+              {/* Date de l'événement */}
               <Text style={styles_Event.date}>{formatDate(event.date)}</Text>
               
-              {/* Description en gris */}
+              {/* Description de l'événement */}
               <Text style={styles_Event.description}>{event.description}</Text>
 
               {/* Barre de navigation */}
@@ -86,6 +94,7 @@ const Event = () => {
               setScrollPosition(event.nativeEvent.contentOffset.x);
             }}
             scrollEventThrottle={16}>
+              {/* Implémentation de la barre d'onglet */}
             <TouchableOpacity
               style={[styles_Event.tab, currentPage === 'Infos' && styles_Event.activeTab]}
               onPress={() => changePage('Infos')}>
@@ -104,8 +113,7 @@ const Event = () => {
         {/* Contenu en dessous de la barre de navigation */}
         {currentPage === 'Infos' ? (
             <View>
-              {/* Contenu pour la page Info */}
-              {/* Légendes */}
+              {/* ---------------- Contenu pour la page Info------------------- */}
           <View style={styles.legendContainer}>
             <View style={styles.legendItem}>
               <Text style={styles.legendDescription}>Theme </Text>
@@ -125,7 +133,7 @@ const Event = () => {
             </View>
           </View>
 
-          {/* Lien pour le nombre d'invités */}
+          {/* Lien pour le nombre d'invités  (tous les users pour le moment) */}
           <TouchableOpacity style={styles_Event.button} onPress={() => navigation.navigate('Invite')}>
             <Text style={styles_Event.buttonTextTop}>Nombre d'invités: {nbParticipations}</Text>
             <Text style={styles_Event.buttonTextBottom}>Voir les invités</Text>
@@ -155,6 +163,9 @@ const Event = () => {
   );
 };
 
+
+
+// ----------------- style de la page ----------------------
 const styles_Event = StyleSheet.create({
 
   presentation: {
@@ -183,10 +194,10 @@ const styles_Event = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 40, // Ajustez selon votre préférence
+    paddingHorizontal: 40, 
     marginBottom: 20,
     height : 60,
-    backgroundColor: 'lightblue', // Couleur de fond de la barre de navigation
+    backgroundColor: 'lightblue', 
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -196,14 +207,14 @@ const styles_Event = StyleSheet.create({
   },
   activeTab: {
     borderRadius: 20,
-    backgroundColor: '#1A237E', // Couleur de fond de l'onglet actif
+    backgroundColor: '#1A237E', 
   },
   tabText: {
     fontSize: 18,
     color: 'white',
   },
   activeTabText: {
-    fontWeight: 'bold', // Texte en gras pour l'onglet actif
+    fontWeight: 'bold', 
   },
 
   link: {
@@ -220,7 +231,7 @@ const styles_Event = StyleSheet.create({
     backgroundColor: 'lightblue',
     paddingVertical: 15,
     marginBottom: 20,
-    width: '100%', // Pour étendre le bouton sur toute la largeur
+    width: '100%', 
   },
   button: {
     alignItems: 'center',
@@ -232,7 +243,7 @@ const styles_Event = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 5, // Pour ajouter de l'espace entre les lignes
+    marginBottom: 5, 
   },
   buttonTextBottom: {
     fontSize: 18,

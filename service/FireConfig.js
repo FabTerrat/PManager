@@ -5,6 +5,8 @@ import { getFirestore } from "firebase/firestore"; // Importez la fonction getFi
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
+// ----------------------  FIREBASE CONFIGURATIONS -----------------------
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -23,4 +25,4 @@ const analytics = getAnalytics(app);
 // Obtention d'une instance de Firestore
 const db = getFirestore(app); // Initialisez Firestore en utilisant l'instance de l'application Firebase
 
-export default db;
+export default db; // exportation de db pour pouvoir utiliser ce lien à la base de donnée partout où il est appelé

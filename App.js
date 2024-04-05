@@ -10,6 +10,7 @@ import {ContributionProvider}  from './service/ContextProvider/ContributionConte
 
 import HeaderBox from './components/Header';
 
+// Importation des pages 
 import Accueil from './pages/Accueil';
 import NewEvent from './pages/NewEvent';
 import Event from './pages/Event';
@@ -17,8 +18,9 @@ import Partages from './pages/Partages';
 import Invite from './pages/Invite';
 import NewResource from  "./pages/NewResource";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(); // Crée le bloc de navigation
 
+// ------------------ Application principale créant le lien entre les pages via la navigation et propage les données ---------------
 export default function App() {
   return (
     // Pour l'instant data lisibles par toutes les pages, A modifier éventuellement plus tard

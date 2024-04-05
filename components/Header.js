@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import NotifBar from './NotifBar'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+// --------- Composant permettant d'afficher Le titre en haut de page ---------   (+ un bouton paramètre non configuré) ------------------
 const HeaderBox = () => {
   return (
     <View>
@@ -19,23 +20,25 @@ const HeaderBox = () => {
   );
 };
 
+
+// ------------- Style du header -----------------
 const styles = StyleSheet.create({
   header_container: {
-    paddingTop: 20, // padding en haut pour s'assurer que le texte n'est pas collé au bord supérieur de la boîte
-    paddingBottom: 20, // padding en bas pour un peu d'espace
-    paddingHorizontal: 15, // padding horizontal pour un peu d'espace sur les côtés
-    flexDirection: 'row', // disposition horizontale des éléments enfants
-    alignItems: 'center', // alignement des éléments enfants sur l'axe vertical
-    justifyContent: 'space-between', // alignement des éléments enfants sur l'axe horizontal
+    paddingTop: 20, 
+    paddingBottom: 20, 
+    paddingHorizontal: 15, 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
     backgroundColor : 'black',
   },
   header_title: {
-    color: 'white', // couleur du texte du titre
-    fontSize: 20, // taille de la police du titre
-    fontWeight: 'bold', // graisse du texte en gras
+    color: 'white', 
+    fontSize: 20, 
+    fontWeight: 'bold', 
   },
   settingsIcon: {
-    marginLeft: 10, // Marge à gauche pour séparer le titre de l'icône
+    marginLeft: 10, 
   },
 });
 

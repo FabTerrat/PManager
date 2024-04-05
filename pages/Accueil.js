@@ -7,13 +7,15 @@ import styles from '../theme/styles';
 import EventContext from '../service/ContextProvider/EventContext';
 
 
-// Fonction pour formater la date
+// ---------- Fonction pour formater la date ------------
 export const formatDate = (timestamp) => {
   const dateObject = timestamp.toDate(); // Convertir le Timestamp en objet Date
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return dateObject.toLocaleDateString('fr-FR', options); // Utilisez la locale 'fr-FR' pour formater la date en français
 };
 
+
+// -------- Permet de lister tous les événements lues  à l'identique / format de chaque item ----------
 const ListItem = ({ date, title, description, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.itemContainer, styles.itemMargin]}>
@@ -29,14 +31,16 @@ const ListItem = ({ date, title, description, onPress }) => {
 };
 
 
-// ------------------Barre Footer-----------------------
+// ------------------Barre Footer----------------------- 
+// Lien vers la page Nouvel Evénement
+// Bouton Historique non configuré
 const FooterBar = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation();  // Permet de naviguer sur d'autres pages et transmettre également des paramètres
   return (
     <SafeAreaView style={styles.bottomBar}>
       <TouchableOpacity style={styles.button} >
         <Icon name="history" size={30} color="white" />
-        <Text style={styles.buttonText}>Historique</Text>
+        <Text style={styles.buttonText}>Historique</Text>  
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NewEvent')}>
         <Icon name="add-circle" size={30} color="white" />
@@ -51,7 +55,7 @@ const FooterBar = () => {
 
 const Accueil = ({ navigation }) => {
 
-
+  //  Récupération des données events dans la base de données via le Context propre au user
   const {events} = useContext(EventContext)
 
   const handleItemPress = (event) => {
@@ -59,6 +63,7 @@ const Accueil = ({ navigation }) => {
     navigation.navigate('Event', { event });
   };
 
+  // Lecture de tous les évènements un par un
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.contentContainer}>

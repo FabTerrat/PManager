@@ -3,7 +3,7 @@
     "name": "PManager",
     "slug": "PManager",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "portrait", 
     "icon": "./assets/pmlogo.png",
     "userInterfaceStyle": "light",
     "splash": {

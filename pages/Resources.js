@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/Entypo';
 
 
-
+// -------------format de chaque ressource affichée -----------------
 const ListResources = ({ proprio, name, category, quantity, toShare}) => {
   
     return (
@@ -37,14 +37,14 @@ const ListResources = ({ proprio, name, category, quantity, toShare}) => {
                 <View style={style_res.quantityContainer}>
                     <Text style={style_res.quantityText}>*{quantity}</Text>
                 </View>
-                {/* Quatrième partie: Checkbox et Prix (optionnel) */}
+                {/* Si ressource partageable financièrement : logo de partage financier */}
                 {toShare === "1" && (
                     <View style={style_res.toShareContainer}>
                         <Icon name="safety-divider" size={20} color="black" />
                         <Icon name="currency-exchange" size={20} color="black" />
                     </View>
                 )}
-                {/* Quatrième partie: Checkbox et Prix (optionnel) */}
+                {/* Si ressource non partageable financièrement : mettre ok */}
                 {toShare === "0" && (
                     <View style={style_res.toShareContainer}>
                         <Icon name="safety-divider" size={20} color="black" />
@@ -57,8 +57,10 @@ const ListResources = ({ proprio, name, category, quantity, toShare}) => {
 };
 
 
-
+// ---------------------- Main Page - Ressource ------------------------------------------------
 const PageRessource = ({ event }) => {
+    
+    // --------Données tests utilisée également dans la partie partage--------------
     // const resource = [
     //     { id: 1, proprio : 'Tom', nom : 'Pomme', category: 'A', quantity : "2", toShare: 1},
     //     { id: 2, proprio : 'Malick', nom : "jus de pomme", category: 'B', quantity : "2L", toShare: 1},
@@ -66,54 +68,17 @@ const PageRessource = ({ event }) => {
     //     { id: 4, proprio : 'Malick', nom : "jus de carotte", category: 'B', quantity : "3L", toShare: 0},
     // ];
 
+    //Récupération des données nécessaires
     const {resources} = useContext(ResourceContext);
     const {allUsers} = useContext(UserContext);
     const {allParticipations}=useContext(ParticipationContext);
     const {allContributions}=useContext(ContributionContext);
 
+    // -----------Partie Non fonctionnelle qui devrait permettre de récupérer tous les éléments nécessaire à donner les infos d'une ressource---
+    // const [resources, setResources] = useState([]); ... Bonne utilisation de if et query : Non réussi
 
-    // const [resources, setResources] = useState([]);
-
-    // useEffect((event) => {
-    //     const fetchResourcesForEvent = async () => {
-    //         try {
-    //             // Vérifiez que event et event.id sont définis avant d'exécuter la requête Firestore
-    //             if (event && event.id) {
-    //                 const participationsCollection = collection(db, 'participations');
-    //                 const participationsQuery = query(participationsCollection, where('eventId', '==', event.id));
-    //                 const participationsSnapshot = await getDocs(participationsQuery);
-
-    //                 const promises = [];
-
-    //                 participationsSnapshot.forEach((doc) => {
-    //                     const participationData = doc.data();
-    //                     const contributionsCollection = collection(db, 'contributions');
-    //                     const contributionsQuery = query(contributionsCollection, where('idParticipation', '==', doc.id));
-    //                     const promise = getDocs(contributionsQuery);
-    //                     promises.push(promise);
-    //                 });
-
-    //                 const results = await Promise.all(promises);
-
-    //                 const resourcesData = [];
-    //                 results.forEach((contributionsSnapshot) => {
-    //                     contributionsSnapshot.forEach((contribution) => {
-    //                         const contributionData = contribution.data();
-    //                         resourcesData.push(contributionData);
-    //                     });
-    //                 });
-
-    //                 setResources(resourcesData);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching resources:', error);
-    //         }
-    //     };
-
-    //     fetchResourcesForEvent();
-    // }, [event]); 
     
-
+    //  Affichage des éléments ressources / Pour l'instant, toutes les ressources sont présentes
     return (
         <SafeAreaView style={styles.safeArea}>
             <SafeAreaView style={style_res.legendItemContainer}>
@@ -126,7 +91,7 @@ const PageRessource = ({ event }) => {
                 {resources.map(contribution => (
                     <ListResources
                         key={contribution.id}
-                        proprio="A définir"  // Rend le user.username du user dont contribution.userId = user.id
+                        proprio="Nom du propriétaire"  // Devra rendre le user.username du user dont contribution.userId = user.id
                         name={contribution.name} // Rend le resource.name de la resource dont contribution.resourceId = resource.id
                         category={contribution.category} // Rend le categories.name de la resource dont resource.category=categorie.id et contribution.resourceId = resource.id
                         quantity={contribution.quantity} // Rend le resource.quantity de la resource dont contribution.resourceId = resource.id
@@ -136,41 +101,11 @@ const PageRessource = ({ event }) => {
             </View>
         </SafeAreaView>
     );
-    // return (
-    //     <SafeAreaView style={styles.safeArea}>
-    //         <SafeAreaView style={style_res.legendItemContainer}>
-    //             <Text style={styles.legendRessource}>Catégorie</Text>
-    //             <Text style={styles.legendRessource}>Nom</Text>
-    //             <Text style={styles.legendRessource}>Quantité</Text>
-    //             <Text style={styles.legendRessource}>Partage</Text>
-    //         </SafeAreaView>
-    //         <View style={styles.contentContainer}>
-    //             {allContributions && allContributions.map(contribution => {
-    //                 // Trouver le user associé à cette contribution
-    //                 const user = allUsers.find(user => user.id === contribution.user_id);
-                    
-    //                 // Trouver la ressource associée à cette contribution
-    //                 const resource = allResources.find(resource => resource.id === contribution.resource_id);
-                    
-    //                 // Trouver la catégorie associée à cette ressource
-    //                 const category = allCategories.find(category => category.id === resource.category_id);
-    
-    //                 return (
-    //                     <ListResources
-    //                         key={contribution.id}
-    //                         proprio={user ? user.username : 'N/A'}
-    //                         name={resource ? resource.name : 'N/A'}
-    //                         category={category ? category.name : 'N/A'}
-    //                         quantity={resource ? resource.quantity : 'N/A'}
-    //                         toShare={resource ? resource.toShare : 'N/A'}
-    //                     />
-    //                 );
-    //             })}
-    //         </View>
-    //     </SafeAreaView>
-    // );
 };
 
+
+
+// ----------------- style de la page ----------------------
 export const style_res = StyleSheet.create({
     container: {
         marginBottom: 10,

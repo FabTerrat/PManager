@@ -8,23 +8,27 @@ import db from '../service/FireConfig';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/Entypo';
 
+
+// ------------- Main Page - Nouvelle Ressource -------------------------------
 const AddResource = ({}) => {   //{navigation}
+  // Initialisation des paramètres de la ressource à entrer
   const [proprio, setProprio] = useState('');
   const [name, setName] = useState('');
   const [category, setCategory] = useState('A');
   const [quantity, setQuantity] = useState('');
   const [toShare, setToShare] = useState(1);
 
+  // Fonction d'ajout (non fonctionnelle)
   const handleAddResource = async () => {
     try {
-        // Ajoutez la nouvelle ressource à la collection 'contributions' dans Firestore
+        // Ajoutez la nouvelle ressource à l'événement
         const docRef = await addDoc(collection(db, 'contributions'), {
             proprio,
             nom: name,
             category,
             quantity,
             toShare,
-            // Ajoutez d'autres champs si nécessaire
+            // Ajouter les autres champs plus tard
         });
           console.log('Document written with ID: ', docRef.id);
 
@@ -39,6 +43,7 @@ const AddResource = ({}) => {   //{navigation}
       }
   };
 
+  // Champs des paramètres à entrer pour l'ajout de la ressource
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles_New.contentContainer}>
@@ -117,6 +122,7 @@ const AddResource = ({}) => {   //{navigation}
                 onPress={() => setToShare(toShare === 1 ? 0 : 1)}
               />
               <Text style={styles_New.legendRessource}>
+                {/*  Permet en un clic sur l'icone de changer le statut de partage */}
                 {toShare === 1 ? 'Partager les frais' : 'Ne pas partager les frais'}
               </Text>
             </View>

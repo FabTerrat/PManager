@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation  } from '@react-navigation/native';
-import styles from '../theme/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import UserContext from '../service/ContextProvider/UserContext';
 
@@ -33,19 +31,13 @@ const ListGuest = ({ username, status, onPress, onDelete }) => {
     );
 };
 
-const PageInvite = ({ navigation }) => {
-    // const guests = [
-    //     { id: 1, name : 'Tom', status : 'Admin' },
-    //     { id: 2, name : 'Louis', status : 'Guest' },
-    //     { id: 3, name : 'Margerite', status : 'Guest' },
-    //     { id: 4, name : 'Ninon', status : 'Guest' },
-    // ];
+const PageInvite = ({  navigation }) => {
 
-    // const handleGuestPress = (id) => {
-    //     // Navigate to the guest's details page
-    // };
+    const handleGuestPress = (id) => {
+        // Possibilité de mettre une page de profil du user
+    };
 
-    const {users, deleteUser}  = useContext(UserContext);
+    const {users, deleteUser}  = useContext(UserContext); // Récupération des users de la BDD
 
     //Supprimer l'utilisateur avec son id
     const handleDeletePress = (id) => {
@@ -53,9 +45,10 @@ const PageInvite = ({ navigation }) => {
     };
 
     const handleAddGuestPress = () => {
-        // A implémenter pour faire voir le profil 
+        // A implémenter pour faire apparaitre un champ texte et pouvoir ajouter un invité
     }
 
+    //Récupération de tous les invités / users et trie 
     return (
         <View style={style_res.container}>
             {users.slice() // Crée une copie du tableau pour éviter de modifier l'ordre des éléments dans l'original
@@ -69,14 +62,14 @@ const PageInvite = ({ navigation }) => {
                     onDelete={ () => handleDeletePress(guest.id)}
                 />               
             ))}
-            <TouchableOpacity onPress={handleAddGuestPress} style={styles.addButton}>
-                <Text style={styles.addButtonText}>+ Add guest</Text>
+            <TouchableOpacity onPress={handleAddGuestPress}>
+                <Text>+ Add guest</Text>
             </TouchableOpacity>
         </View>
     );
 };
 
-
+// ----------------- style de la page ----------------------
 const style_res = StyleSheet.create({
     container: {
         marginBottom: 10,
@@ -87,11 +80,11 @@ const style_res = StyleSheet.create({
       itemContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between', // Align delete button to the end of the row
+        justifyContent: 'space-between', 
       },
       nameText: {
         fontSize: 16,
-        marginRight: 10, // Add some space between name and delete button
+        marginRight: 10, 
       },
 });
 

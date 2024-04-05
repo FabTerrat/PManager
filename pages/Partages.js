@@ -6,10 +6,10 @@ import Icons from 'react-native-vector-icons/Entypo';
 import CheckBox from '../components/CheckBox';
 
 
-
+// --------------- Fonction donnant le format de chaque ressource entrée ---------------
 const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMax, onPress, checkBoxValue }) => {
     
-    // ---- A modif avec BDD -----------
+    // ---- A modifier avec la BDD -----------
     const [maxPersons, setMaxPersons] = useState(1);
     const handleCheckBoxChange = (value) => {
         if (value === 1) {
@@ -61,10 +61,10 @@ const ListResources = ({ proprio, name, category, quantity, toShare, price, nbMa
 
 
 
-// ----------------------- Main Page  ------------------------------
+// ----------------------- Main Page - L'affichage des ressources partageables ------------------------------
 const PageRessource = ({ navigation }) => {
 
-    // Exemple de ressources partageable
+    // Exemple de ressources 
     const resource = [
         { id: 1, proprio : 'Tom', nom : 'Pomme', categorie: 'A', quantity : "2", toShare: 1, price : "8$", nbMax: 3 },
         { id: 2, proprio : 'Malick', nom : "jus de pomme", categorie: 'B', quantity : "2L", toShare: 1, price : "2.3$", nbMax: 3 },
@@ -105,7 +105,7 @@ const PageRessource = ({ navigation }) => {
 
 
 
-// -----------------------Styles ------------------------------
+// ----------------- style de la page ----------------------
 const style_res = StyleSheet.create({
     container: {
         marginBottom: 10,

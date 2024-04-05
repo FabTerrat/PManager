@@ -12,6 +12,8 @@ import db from '../service/FireConfig';
 
 
 // ------------------------Footer Bar -----------------------------------------------------
+// Lien de retour et lien de validation
+
 const FooterBar = ({handleSaveEvent, navigation}) => {
 
   return (
@@ -28,11 +30,12 @@ const FooterBar = ({handleSaveEvent, navigation}) => {
   );
 };
 
-// ---------------------- Main Page New Event ----------------------------------
+// ---------------------- Main Page - New Event ----------------------------------
 const NewEvent = ({}) => {
 
   const navigation = useNavigation();
 
+  // L'initialisation des données à rentrée dans le nouvel événement
   const [titleData, setTitle] = useState('');
   const [descriptionData, setDescription] = useState('');
   const [dateData, setDate] = useState( new Date() );
@@ -48,6 +51,7 @@ const NewEvent = ({}) => {
   const [showTimePicker, setShowTimePicker] = useState(false);
 
 
+  // ----------------Fonction pour gérer la date / TimeStamp ------
   // Modifier la fonction handleDateChange
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dateData;
@@ -67,6 +71,7 @@ const NewEvent = ({}) => {
     setEventData(currentDate); // Mettre à jour l'état de l'heure de l'événement
   };
 
+  // -------------- fonction d'ajout de l'événement
   const handleSaveEvent = async () => {
     try {
       // Utilisez addDoc pour ajouter des données à la collection "events"
@@ -79,12 +84,13 @@ const NewEvent = ({}) => {
         comment: commentData,
         date: dateData
       }); 
-      navigation.navigate('Accueil');
+      navigation.navigate('Accueil'); // => retour à l'écran d'Accueil
     } catch (error) {
       console.error('Error adding event: ', error);
     }
   };
 
+  // ---------------- Les champs de la page ------------------------
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.contentContainer}>

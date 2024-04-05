@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+
+// ---------------------------Feuille de style --------------------------------
 const styles = StyleSheet.create({
   safeArea :{
     flex : 1,
